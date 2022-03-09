@@ -18,3 +18,17 @@ margin_right = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 align = 1
+
+[node name="CityContainer" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -774.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="WordList" type="RichTextLabel" parent="."]
+anchor_bottom = 1.0
+margin_right = 250.0

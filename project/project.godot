@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="NewProject"
+config/name="CornerstoneCompo"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
