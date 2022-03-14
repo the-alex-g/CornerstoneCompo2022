@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "CustomArray",
+"language": "GDScript",
+"path": "res://CustomArray.gd"
+} ]
+_global_script_class_icons={
+"CustomArray": ""
+}
+
 [application]
 
 config/name="CornerstoneCompo"
