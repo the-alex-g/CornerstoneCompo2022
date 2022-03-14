@@ -36,6 +36,7 @@ __meta__ = {
 }
 
 [node name="Background" type="Label" parent="CityContainer"]
+modulate = Color( 0.333333, 0.333333, 0.333333, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -43,6 +44,7 @@ __meta__ = {
 }
 
 [node name="Midground" type="Label" parent="CityContainer"]
+modulate = Color( 0.756863, 0.756863, 0.756863, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -56,6 +58,7 @@ __meta__ = {
 [node name="WordList" type="RichTextLabel" parent="."]
 anchor_bottom = 1.0
 margin_right = 250.0
+margin_bottom = -54.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

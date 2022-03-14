@@ -15,6 +15,31 @@ const FOREGROUND_SEQUENCE := [
 	0, 0, 0, 0, "n",
 	0, 0, 0, 0, "n",
 ]
+const MIDGROUND_SEQUENCE := [
+	-1, -1, -1, -1, 0, "n",
+	-1, -1, -1, -1, 0, "n",
+	-1, -1, -1, -1, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, 0, 0, 0, 0, "n",
+]
+const BACKGROUND_SEQUENCE := [
+	-1, -1, -1, -1, -1, -1, -1, -1, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, -1, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, -1, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+	-1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, "n",
+]
+const SPACES_PER_CHAR := "  "
 
 var _word_being_typed := ""
 var _words_entered := {}
@@ -26,10 +51,12 @@ var _character_counter := 0
 onready var _text_display = $TextDisplay as Label
 onready var _word_list = $WordList as RichTextLabel
 onready var _foreground = $CityContainer/Foreground as Label
+onready var _midground = $CityContainer/Midground as Label
+onready var _background = $CityContainer/Background as Label
 
 
 func _ready()->void:
-	_foo.setup(32)
+	_foo.setup(96)
 
 
 func _input(event:InputEvent)->void:
@@ -84,18 +111,48 @@ func _on_AdvanceStringTimer_timeout()->void:
 	var character = _scrolling_string[_character_index-1]
 	_foo.add(character)
 	
-	_draw_field()
+	var field := _generate_field()
+	_foreground.text = field["foreground"]
+	_midground.text = field["midground"]
+	_background.text = field["background"]
 
 
-func _draw_field()->void:
+func _generate_field()->Dictionary:
 	var index := 0
-	_foreground.text = ""
+	var dict := {}
+	var text := ""
 	for x in FOREGROUND_SEQUENCE:
 		match x:
 			-1:
-				_foreground.text += " "
+				text += SPACES_PER_CHAR
 			0:
-				_foreground.text += _foo.get_at(index)
+				text += _foo.get_at(index)
 				index += 1
 			"n":
-				_foreground.text += "\n"
+				text += "\n"
+	dict["foreground"] = text
+	text = ""
+	
+	for x in MIDGROUND_SEQUENCE:
+		match x:
+			-1:
+				text += SPACES_PER_CHAR
+			0:
+				text += _foo.get_at(index)
+				index += 1
+			"n":
+				text += "\n"
+	dict["midground"] = text
+	text = ""
+	
+	for x in BACKGROUND_SEQUENCE:
+		match x:
+			-1:
+				text += SPACES_PER_CHAR
+			0:
+				text += _foo.get_at(index)
+				index += 1
+			"n":
+				text += "\n"
+	dict["background"] = text
+	return dict
