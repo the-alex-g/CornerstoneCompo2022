@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/Display.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Default.tres" type="DynamicFont" id=2]
+
+[resource]
+default_font = ExtResource( 2 )
+/fonts/Display = null
+Label/fonts/font = ExtResource( 1 )
+RichTextLabel/fonts/normal_font = ExtResource( 2 )
