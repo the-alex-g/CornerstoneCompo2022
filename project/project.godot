@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "CustomArray",
 "language": "GDScript",
 "path": "res://CustomArray.gd"
+}, {
+"base": "Node",
+"class": "SkylineGenerator",
+"language": "GDScript",
+"path": "res://SkylineGenerator/Generator.gd"
 } ]
 _global_script_class_icons={
-"CustomArray": ""
+"CustomArray": "",
+"SkylineGenerator": ""
 }
 
 [application]

@@ -44,3 +44,12 @@ func add(value:String)->void:
 	var array_length := _array.size()
 	if array_length > _max_value:
 		_array.remove(array_length-1)
+
+
+func only_contains(value:String)->bool:
+	var is_true := true
+	for v in _array:
+		if v != value:
+			is_true = false
+	return is_true
+	

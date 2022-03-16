@@ -39,6 +39,7 @@ __meta__ = {
 modulate = Color( 0.333333, 0.333333, 0.333333, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,10 +48,12 @@ __meta__ = {
 modulate = Color( 0.756863, 0.756863, 0.756863, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+valign = 2
 
 [node name="Foreground" type="Label" parent="CityContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -63,10 +66,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AdvanceStringTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [node name="Credits" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -75,4 +74,13 @@ margin_right = 256.0
 text = "Font made by Bou Fonts
 Game made in Godot Engine"
 
+[node name="AdvanceStringTimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="ClearTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
 [connection signal="timeout" from="AdvanceStringTimer" to="." method="_on_AdvanceStringTimer_timeout"]
+[connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
