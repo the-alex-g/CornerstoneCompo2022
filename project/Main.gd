@@ -45,7 +45,7 @@ func _ready()->void:
 			number_of_chars += 1
 	_scrolling_array.setup(number_of_chars)
 	
-	_clear_timer.wait_time = number_of_chars * TIME_PER_CHAR * 2
+	_clear_timer.wait_time = number_of_chars * TIME_PER_CHAR * 1.2
 	_advance_timer.wait_time = TIME_PER_CHAR
 
 
