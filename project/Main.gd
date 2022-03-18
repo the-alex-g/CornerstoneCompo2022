@@ -30,6 +30,8 @@ func _ready()->void:
 	var generator := SkylineGenerator.new()
 	var dict := generator.compile()
 	_foreground_sequence = dict["foreground"]
+	_background_sequence = dict["background"]
+	_midground_sequence = dict["midground"]
 	
 	var number_of_chars := 0
 	for v in _foreground_sequence:
@@ -172,4 +174,3 @@ func _generate_field()->Dictionary:
 
 func _on_ClearTimer_timeout()->void:
 	_is_clearing = true
-	print("clear")
