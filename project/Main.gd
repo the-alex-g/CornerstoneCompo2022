@@ -85,7 +85,6 @@ func _submit_word()->void:
 			final += "!"
 		elif c != "]":
 			final += c
-	print(final)
 	
 	_all_words = final + _all_words
 	_word_being_typed = ""
