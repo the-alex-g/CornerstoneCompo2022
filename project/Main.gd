@@ -1,6 +1,6 @@
 extends Control
 
-const SCANCODE_ALPHABET := {32:" ", 65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"][", 74:"j", 75:"k", 76:"l", 77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t", 85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z"}
+const SCANCODE_ALPHABET := {32:" ", 65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j", 75:"k", 76:"l", 77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t", 85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z"}
 const ENTER := 16777221
 const BACKSPACE := 16777220
 const SPACES_PER_CHAR := "  "
@@ -61,10 +61,7 @@ func _input(event:InputEvent)->void:
 				_submit_word()
 			
 			if scancode == BACKSPACE:
-				if _word_being_typed[_word_being_typed.length() - 1] == "[":
-					_word_being_typed.erase(_word_being_typed.length() - 2, 2)
-				else:
-					_word_being_typed.erase(_word_being_typed.length() - 1, 1)
+				_word_being_typed.erase(_word_being_typed.length() - 1, 1)
 				_text_display.text = _word_being_typed
 
 
@@ -79,14 +76,7 @@ func _submit_word()->void:
 	_update_wordlist()
 	
 	# adds word at start of _all_words
-	var final := ""
-	for c in _word_being_typed:
-		if c == "[":
-			final += "!"
-		elif c != "]":
-			final += c
-	
-	_all_words = final + _all_words
+	_all_words = _word_being_typed + _all_words
 	_word_being_typed = ""
 	_text_display.text = _word_being_typed
 
@@ -113,10 +103,7 @@ func _on_AdvanceStringTimer_timeout()->void:
 		if _character_counter >= string_length:
 			_character_counter %= string_length
 		var character = _all_words[_character_index-1]
-		if character == "!":
-			_scrolling_array.add("][")
-		else:
-			_scrolling_array.add(character)
+		_scrolling_array.add(character)
 	
 	else:
 		_scrolling_array.add(SPACES_PER_CHAR)

@@ -6,5 +6,5 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color( 0, 0.929412, 1, 1 )
+border_color = Color( 0.54902, 0.905882, 1, 1 )
 border_blend = true
