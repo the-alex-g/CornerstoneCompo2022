@@ -111,5 +111,56 @@ autostart = true
 wait_time = 60.0
 one_shot = true
 
+[node name="Button" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -69.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 34.0
+text = "Clear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Password" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.5
+margin_top = -39.5
+margin_right = 150.5
+margin_bottom = 39.5
+custom_styles/panel = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Password"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -141.5
+margin_top = -22.0
+margin_right = 141.5
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="Label" parent="Password/VBoxContainer"]
+margin_right = 283.0
+margin_bottom = 20.0
+text = "Enter the password to confirm"
+
+[node name="Password" type="Label" parent="Password/VBoxContainer"]
+margin_top = 24.0
+margin_right = 283.0
+margin_bottom = 44.0
+
 [connection signal="timeout" from="AdvanceStringTimer" to="." method="_on_AdvanceStringTimer_timeout"]
 [connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

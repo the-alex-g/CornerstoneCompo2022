@@ -52,4 +52,9 @@ func only_contains(value:String)->bool:
 		if v != value:
 			is_true = false
 	return is_true
-	
+
+
+func empty()->void:
+	_array.clear()
+
+

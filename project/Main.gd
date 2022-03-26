@@ -5,6 +5,7 @@ const ENTER := 16777221
 const BACKSPACE := 16777220
 const SPACES_PER_CHAR := "  "
 const TIME_PER_CHAR := 0.3
+const PASSWORD := "gforce"
 
 var _word_being_typed := ""
 var _words_entered := {}
@@ -16,6 +17,8 @@ var _is_clearing := false
 var _foreground_sequence := []
 var _midground_sequence := []
 var _background_sequence := []
+var _password_mode := false
+var _password := ""
 
 onready var _text_display = $TextDisplay as Label
 onready var _word_list = $WordList as RichTextLabel
@@ -24,6 +27,9 @@ onready var _advance_timer = $AdvanceStringTimer as Timer
 onready var _foreground = $CityContainer/Foreground as Label
 onready var _midground = $CityContainer/Midground as Label
 onready var _background = $CityContainer/Background as Label
+onready var _password_field = $Password/VBoxContainer/Password as Label
+onready var _popup = $Password as Panel
+onready var _password_button = $Button as Button
 
 
 func _ready()->void:
@@ -54,31 +60,59 @@ func _input(event:InputEvent)->void:
 		if event.is_pressed():
 			var scancode = event.scancode
 			if SCANCODE_ALPHABET.keys().has(scancode):
-				_word_being_typed += SCANCODE_ALPHABET[scancode]
-				_text_display.text = _word_being_typed
+				var letter = SCANCODE_ALPHABET[scancode] as String
+				if _password_mode:
+					_password += letter
+					_password_field.text = _password
+				else:
+					_word_being_typed += letter
+					_text_display.text = _word_being_typed
 			
-			if scancode == ENTER and _word_being_typed.length() > 0:
+			if scancode == ENTER and (_word_being_typed.length() > 0 or _password_mode):
 				_submit_word()
 			
 			if scancode == BACKSPACE:
-				_word_being_typed.erase(_word_being_typed.length() - 1, 1)
-				_text_display.text = _word_being_typed
+				if _password_mode:
+					_password.erase(_password.length() - 1, 1)
+					_password_field.text = _password
+					print(_password)
+				else:
+					_word_being_typed.erase(_word_being_typed.length() - 1, 1)
+					_text_display.text = _word_being_typed
 
 
 func _submit_word()->void:
-	if _clear_timer.is_stopped() and not _is_clearing:
-		_clear_timer.start()
-	
-	if _words_entered.keys().has(_word_being_typed):
-		_words_entered[_word_being_typed] = _words_entered[_word_being_typed] + 1
+	if _password_mode:
+		if _password == PASSWORD:
+			_clear()
+			_password_button.focus_mode = Control.FOCUS_CLICK
 	else:
-		_words_entered[_word_being_typed] = 1
-	_update_wordlist()
-	
-	# adds word at start of _all_words
-	_all_words = _word_being_typed + _all_words
-	_word_being_typed = ""
-	_text_display.text = _word_being_typed
+		if _clear_timer.is_stopped() and not _is_clearing:
+			_clear_timer.start()
+		
+		if _words_entered.keys().has(_word_being_typed):
+			_words_entered[_word_being_typed] = _words_entered[_word_being_typed] + 1
+		else:
+			_words_entered[_word_being_typed] = 1
+		_update_wordlist()
+		
+		# adds word at start of _all_words
+		_all_words = _word_being_typed + _all_words
+		_word_being_typed = ""
+		_text_display.text = _word_being_typed
+
+
+func _clear()->void:
+	_popup.visible = false
+	_password = ""
+	_password_field.text = ""
+	_word_list.text = ""
+	_scrolling_array.empty()
+	_all_words = ""
+	_foreground.text = ""
+	_background.text = ""
+	_midground.text = ""
+	_password_mode = false
 
 
 func _update_wordlist()->void:
@@ -160,3 +194,9 @@ func _generate_field()->Dictionary:
 
 func _on_ClearTimer_timeout()->void:
 	_is_clearing = true
+
+
+func _on_Button_pressed()->void:
+	_popup.visible = true
+	_password_mode = true
+	_password_button.focus_mode = Control.FOCUS_NONE
