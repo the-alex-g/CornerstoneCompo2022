@@ -6,6 +6,7 @@ const BACKSPACE := 16777220
 const SPACES_PER_CHAR := "  "
 const TIME_PER_CHAR := 0.3
 const PASSWORD := "gforce"
+const MESSAGE := "Enter a word that reminds you of the pandemic"
 
 var _word_being_typed := ""
 var _words_entered := {}
@@ -33,6 +34,7 @@ onready var _password_button = $Button as Button
 
 
 func _ready()->void:
+	_text_display.text = MESSAGE
 	var generator := SkylineGenerator.new()
 	var dict := generator.compile()
 	_foreground_sequence = dict["foreground"]
@@ -78,7 +80,10 @@ func _input(event:InputEvent)->void:
 					print(_password)
 				else:
 					_word_being_typed.erase(_word_being_typed.length() - 1, 1)
-					_text_display.text = _word_being_typed
+					if _word_being_typed.length() > 0:
+						_text_display.text = _word_being_typed
+					else:
+						_text_display.text = MESSAGE
 
 
 func _submit_word()->void:
@@ -99,7 +104,7 @@ func _submit_word()->void:
 		# adds word at start of _all_words
 		_all_words = _word_being_typed + _all_words
 		_word_being_typed = ""
-		_text_display.text = _word_being_typed
+		_text_display.text = MESSAGE
 
 
 func _clear()->void:
