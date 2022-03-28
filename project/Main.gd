@@ -3,7 +3,8 @@ extends Control
 const SCANCODE_ALPHABET := {32:" ", 65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j", 75:"k", 76:"l", 77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t", 85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z"}
 const ENTER := 16777221
 const BACKSPACE := 16777220
-const SPACES_PER_CHAR := "  "
+const SHIFT := 16777237
+const SPACES_PER_CHAR := " "
 const TIME_PER_CHAR := 0.3
 const PASSWORD := "gforce"
 const MESSAGE := "Enter a word that reminds you of the pandemic"
@@ -20,6 +21,7 @@ var _midground_sequence := []
 var _background_sequence := []
 var _password_mode := false
 var _password := ""
+var _shift_down := false
 
 onready var _text_display = $TextDisplay as Label
 onready var _word_list = $WordList as RichTextLabel
@@ -59,10 +61,12 @@ func _ready()->void:
 
 func _input(event:InputEvent)->void:
 	if event is InputEventKey:
+		var scancode = event.scancode
 		if event.is_pressed():
-			var scancode = event.scancode
 			if SCANCODE_ALPHABET.keys().has(scancode):
-				var letter = SCANCODE_ALPHABET[scancode] as String
+				var letter : String = SCANCODE_ALPHABET[scancode]
+				if _shift_down:
+					letter = letter.capitalize()
 				if _password_mode:
 					_password += letter
 					_password_field.text = _password
@@ -77,20 +81,28 @@ func _input(event:InputEvent)->void:
 				if _password_mode:
 					_password.erase(_password.length() - 1, 1)
 					_password_field.text = _password
-					print(_password)
 				else:
 					_word_being_typed.erase(_word_being_typed.length() - 1, 1)
 					if _word_being_typed.length() > 0:
 						_text_display.text = _word_being_typed
 					else:
 						_text_display.text = MESSAGE
+			
+			if scancode == SHIFT:
+				_shift_down = true
+		
+		else:
+			if scancode == SHIFT:
+				_shift_down = false
 
 
 func _submit_word()->void:
 	if _password_mode:
-		if _password == PASSWORD:
+		if _password.to_lower() == PASSWORD:
 			_clear()
 			_password_button.focus_mode = Control.FOCUS_CLICK
+		else:
+			_hide_password()
 	else:
 		if _clear_timer.is_stopped() and not _is_clearing:
 			_clear_timer.start()
@@ -108,15 +120,23 @@ func _submit_word()->void:
 
 
 func _clear()->void:
-	_popup.visible = false
-	_password = ""
-	_password_field.text = ""
+	_character_index = 0
+	_character_counter = 0
+	_clear_timer.stop()
 	_word_list.text = ""
 	_scrolling_array.empty()
 	_all_words = ""
+	_words_entered.clear()
 	_foreground.text = ""
 	_background.text = ""
 	_midground.text = ""
+	_hide_password()
+
+
+func _hide_password()->void:
+	_popup.visible = false
+	_password = ""
+	_password_field.text = ""
 	_password_mode = false
 
 
@@ -205,3 +225,7 @@ func _on_Button_pressed()->void:
 	_popup.visible = true
 	_password_mode = true
 	_password_button.focus_mode = Control.FOCUS_NONE
+
+
+func _on_SplashButton_pressed()->void:
+	$SplashButton.hide()
