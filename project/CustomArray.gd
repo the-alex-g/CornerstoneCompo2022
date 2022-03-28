@@ -1,28 +1,8 @@
 class_name CustomArray
 extends Node
-# class description (one line)
-# extended class description
 
-# signals
-
-# enums
-
-# constants
-
-# exported variables
-
-# public variables
-
-# private variables
 var _array := []
 var _max_value := 0
-
-# onready variables
-
-# METHOD ORDER:
-# 1. built-in methods, starting with _init and _ready in that order
-# 2. public methods
-# 3. private methods
 
 func setup(max_value:int)->void:
 	_max_value = max_value
