@@ -35,9 +35,13 @@ onready var _password_container = $PopupPanel/Password as VBoxContainer
 onready var _menu_container = $PopupPanel/Menu as VBoxContainer
 onready var _popup = $PopupPanel as Panel
 onready var _settings_button = $Settings as Button
+onready var _music = $AudioStreamPlayer as AudioStreamPlayer
+onready var _click = $Click as AudioStreamPlayer
 
 
 func _ready()->void:
+	_music.play()
+	
 	_text_display.text = MESSAGE
 	var generator := SkylineGenerator.new()
 	var dict := generator.compile()
@@ -224,6 +228,7 @@ func _on_ClearTimer_timeout()->void:
 
 
 func _on_Settings_pressed()->void:
+	_click.play()
 	_popup.visible = true
 	_password_container.visible = true
 	_menu_container.visible = false
@@ -232,12 +237,20 @@ func _on_Settings_pressed()->void:
 
 
 func _on_ClearButton_pressed()->void:
+	_click.play()
 	_clear()
 
 
-func _on_FullScreen_toggled(button_pressed)->void:
+func _on_FullScreen_toggled(button_pressed:bool)->void:
+	_click.play()
 	OS.window_fullscreen = button_pressed
 
 
 func _on_Done_pressed()->void:
+	_click.play()
 	_popup.visible = false
+
+
+func _on_Mute_pressed(button_pressed:bool)->void:
+	_click.play()
+	AudioServer.set_bus_mute(0, button_pressed)
