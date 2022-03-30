@@ -30,9 +30,11 @@ onready var _advance_timer = $AdvanceStringTimer as Timer
 onready var _foreground = $CityContainer/Foreground as Label
 onready var _midground = $CityContainer/Midground as Label
 onready var _background = $CityContainer/Background as Label
-onready var _password_field = $Password/VBoxContainer/Password as Label
-onready var _popup = $Password as Panel
-onready var _password_button = $Button as Button
+onready var _password_field = $PopupPanel/Password/Password as Label
+onready var _password_container = $PopupPanel/Password as VBoxContainer
+onready var _menu_container = $PopupPanel/Menu as VBoxContainer
+onready var _popup = $PopupPanel as Panel
+onready var _settings_button = $Settings as Button
 
 
 func _ready()->void:
@@ -99,10 +101,10 @@ func _input(event:InputEvent)->void:
 func _submit_word()->void:
 	if _password_mode:
 		if _password.to_lower() == PASSWORD:
-			_clear()
-			_password_button.focus_mode = Control.FOCUS_CLICK
+			_settings_button.focus_mode = Control.FOCUS_CLICK
 		else:
-			_hide_password()
+			_popup.visible = false
+		_hide_password()
 	else:
 		if _clear_timer.is_stopped() and not _is_clearing:
 			_clear_timer.start()
@@ -130,14 +132,14 @@ func _clear()->void:
 	_foreground.text = ""
 	_background.text = ""
 	_midground.text = ""
-	_hide_password()
 
 
 func _hide_password()->void:
-	_popup.visible = false
 	_password = ""
 	_password_field.text = ""
 	_password_mode = false
+	_password_container.visible = false
+	_menu_container.visible = true
 
 
 func _update_wordlist()->void:
@@ -221,11 +223,21 @@ func _on_ClearTimer_timeout()->void:
 	_is_clearing = true
 
 
-func _on_Button_pressed()->void:
+func _on_Settings_pressed()->void:
 	_popup.visible = true
+	_password_container.visible = true
+	_menu_container.visible = false
 	_password_mode = true
-	_password_button.focus_mode = Control.FOCUS_NONE
+	_settings_button.focus_mode = Control.FOCUS_NONE
 
 
-func _on_SplashButton_pressed()->void:
-	$SplashButton.hide()
+func _on_ClearButton_pressed()->void:
+	_clear()
+
+
+func _on_FullScreen_toggled(button_pressed)->void:
+	OS.window_fullscreen = button_pressed
+
+
+func _on_Done_pressed()->void:
+	_popup.visible = false

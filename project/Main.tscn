@@ -107,55 +107,88 @@ autostart = true
 wait_time = 60.0
 one_shot = true
 
-[node name="Button" type="Button" parent="."]
+[node name="Settings" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -69.0
+margin_left = -94.0
 margin_top = 10.0
 margin_right = -10.0
-margin_bottom = 34.0
-text = "Clear"
+margin_bottom = 39.0
+text = "Settings"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Password" type="Panel" parent="."]
+[node name="PopupPanel" type="Panel" parent="."]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.5
-margin_top = -39.5
-margin_right = 150.5
-margin_bottom = 39.5
+margin_left = -165.0
+margin_top = -47.0
+margin_right = 165.0
+margin_bottom = 79.0
 custom_styles/panel = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Password"]
+[node name="Password" type="VBoxContainer" parent="PopupPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -141.5
-margin_top = -22.0
-margin_right = 141.5
-margin_bottom = 22.0
+margin_left = -159.5
+margin_top = -30.0
+margin_right = 159.5
+margin_bottom = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Instructions" type="Label" parent="Password/VBoxContainer"]
-margin_right = 283.0
-margin_bottom = 20.0
+[node name="Instructions" type="Label" parent="PopupPanel/Password"]
+margin_right = 319.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 4 )
 text = "Enter the password to confirm"
 
-[node name="Password" type="Label" parent="Password/VBoxContainer"]
-margin_top = 24.0
-margin_right = 283.0
-margin_bottom = 44.0
+[node name="Password" type="Label" parent="PopupPanel/Password"]
+margin_top = 32.0
+margin_right = 319.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 4 )
+
+[node name="Menu" type="VBoxContainer" parent="PopupPanel"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -95.0
+margin_right = 95.0
+margin_bottom = 116.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullScreen" type="CheckButton" parent="PopupPanel/Menu"]
+margin_right = 190.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 4 )
+text = "Fullscreen"
+
+[node name="ClearButton" type="Button" parent="PopupPanel/Menu"]
+margin_top = 44.0
+margin_right = 190.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 4 )
+text = "Clear"
+
+[node name="Done" type="Button" parent="PopupPanel/Menu"]
+margin_top = 82.0
+margin_right = 190.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 4 )
+text = "Back"
 
 [node name="TextDisplay" type="Label" parent="."]
 anchor_left = 0.5
@@ -173,22 +206,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SplashButton" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 13.0
-margin_top = -12.0
-margin_right = 237.0
-margin_bottom = 12.0
-grow_horizontal = 2
-text = "please press this button"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="timeout" from="AdvanceStringTimer" to="." method="_on_AdvanceStringTimer_timeout"]
 [connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="SplashButton" to="." method="_on_SplashButton_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_Settings_pressed"]
+[connection signal="toggled" from="PopupPanel/Menu/FullScreen" to="." method="_on_FullScreen_toggled"]
+[connection signal="pressed" from="PopupPanel/Menu/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="PopupPanel/Menu/Done" to="." method="_on_Done_pressed"]
