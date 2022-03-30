@@ -1,10 +1,16 @@
-[gd_resource type="Theme" load_steps=3 format=2]
+[gd_resource type="Theme" load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/Display.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/Default.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Styles/Hovered.tres" type="StyleBox" id=3]
+[ext_resource path="res://Styles/DisplayStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://Styles/Pressed.tres" type="StyleBox" id=5]
 
 [resource]
 default_font = ExtResource( 2 )
 /fonts/Display = null
+Button/styles/hover = ExtResource( 3 )
+Button/styles/normal = ExtResource( 4 )
+Button/styles/pressed = ExtResource( 5 )
 Label/fonts/font = ExtResource( 1 )
 RichTextLabel/fonts/normal_font = ExtResource( 2 )

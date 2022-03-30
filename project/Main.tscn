@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://theme.tres" type="Theme" id=2]
-[ext_resource path="res://DisplayStyle.tres" type="StyleBox" id=3]
+[ext_resource path="res://Styles/DisplayStyle.tres" type="StyleBox" id=3]
 [ext_resource path="res://Fonts/Large.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Styles/Dark.tres" type="StyleBox" id=5]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true
 }
 
@@ -38,7 +40,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -50.0
-color = Color( 0, 0.619608, 0.054902, 1 )
+color = Color( 0.0945, 0.63, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -74,8 +76,8 @@ __meta__ = {
 
 [node name="WordList" type="RichTextLabel" parent="."]
 anchor_bottom = 1.0
-margin_right = 251.0
-margin_bottom = -190.0
+margin_right = 252.0
+margin_bottom = -186.0
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
 __meta__ = {
@@ -119,17 +121,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextDisplay" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 105.0
+margin_top = -35.0
+margin_right = 145.0
+margin_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PopupPanel" type="Panel" parent="."]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -165.0
-margin_top = -47.0
-margin_right = 165.0
-margin_bottom = 79.0
-custom_styles/panel = ExtResource( 3 )
+margin_left = -40.0
+margin_top = -78.0
+margin_right = 290.0
+margin_bottom = 78.0
+custom_styles/panel = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -151,60 +169,49 @@ __meta__ = {
 margin_right = 319.0
 margin_bottom = 28.0
 custom_fonts/font = ExtResource( 4 )
-text = "Enter the password to confirm"
+text = "Enter the password"
+align = 1
 
 [node name="Password" type="Label" parent="PopupPanel/Password"]
 margin_top = 32.0
 margin_right = 319.0
 margin_bottom = 60.0
 custom_fonts/font = ExtResource( 4 )
+align = 1
 
 [node name="Menu" type="VBoxContainer" parent="PopupPanel"]
 visible = false
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -95.0
+margin_top = -63.0
 margin_right = 95.0
-margin_bottom = 116.0
+margin_bottom = 63.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FullScreen" type="CheckButton" parent="PopupPanel/Menu"]
 margin_right = 190.0
-margin_bottom = 40.0
+margin_bottom = 42.0
 custom_fonts/font = ExtResource( 4 )
 text = "Fullscreen"
 
 [node name="ClearButton" type="Button" parent="PopupPanel/Menu"]
-margin_top = 44.0
+margin_top = 46.0
 margin_right = 190.0
-margin_bottom = 78.0
+margin_bottom = 84.0
 custom_fonts/font = ExtResource( 4 )
 text = "Clear"
 
 [node name="Done" type="Button" parent="PopupPanel/Menu"]
-margin_top = 82.0
+margin_top = 88.0
 margin_right = 190.0
-margin_bottom = 116.0
+margin_bottom = 126.0
 custom_fonts/font = ExtResource( 4 )
 text = "Back"
-
-[node name="TextDisplay" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 105.0
-margin_top = -35.0
-margin_right = 145.0
-margin_bottom = -15.0
-grow_horizontal = 2
-grow_vertical = 2
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="timeout" from="AdvanceStringTimer" to="." method="_on_AdvanceStringTimer_timeout"]
 [connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
