@@ -5,7 +5,7 @@
 [ext_resource path="res://Styles/DisplayStyle.tres" type="StyleBox" id=3]
 [ext_resource path="res://Fonts/Large.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Styles/Dark.tres" type="StyleBox" id=5]
-[ext_resource path="res://Music/CornerstoneCompo.wav" type="AudioStream" id=6]
+[ext_resource path="res://Music/Music.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Music/ButtonPress.wav" type="AudioStream" id=7]
 
 [node name="Main" type="Control"]
