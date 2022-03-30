@@ -79,26 +79,8 @@ __meta__ = {
 [node name="WordList" type="RichTextLabel" parent="."]
 anchor_bottom = 1.0
 margin_right = 252.0
-margin_bottom = -186.0
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Credits" type="Label" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -193.0
-margin_right = 252.0
-custom_fonts/font = ExtResource( 4 )
-custom_styles/normal = ExtResource( 3 )
-text = "Font ©2016 Google Inc.
-All rights reserved.
-Font published under
-the Open Font License.
-This project was made
-in Godot Engine."
 __meta__ = {
 "_edit_use_anchors_": false
 }
