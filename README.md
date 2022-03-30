@@ -1,6 +1,6 @@
 # Sending Messages
 
-This project was created for the Cornerstone Center for the Arts 2022 Young Artist Exhibition.
+This project was created for the Cornerstone Center for the Arts 2022 Young Artist Exhibition. The theme for this competition was "My Community".
 
 ### Third-Party Assets
 
