@@ -4,4 +4,4 @@ This project was created for the Cornerstone Center for the Arts 2022 Young Arti
 
 ### Third-Party Assets
 
-[SpaceMono](https://fonts.google.com/specimen/Space+Mono) font, used under the Open Font License. A copy of this license can be found in the project (OFL.txt).
+[SpaceMono](https://fonts.google.com/specimen/Space+Mono) font, used under the Open Font License. A copy of this license can be found in the project.
